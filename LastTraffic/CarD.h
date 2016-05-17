@@ -7,10 +7,11 @@ using namespace std;
 
 class CarD : public Frame
 {
-	
+	LPCWSTR path;
 public:
 	
 	CarD(HINSTANCE hInst, LPCWSTR path) : Frame(hInst,path,-50,400,100,50){
+		this->path = path;
 		this->vX = this->vY = 0;
 		this->vX  = 3;
 	}
@@ -55,6 +56,10 @@ public:
 		this->vY = v;
 	}
 
+	void setPath(LPCWSTR parth) {
+		this->path = parth;
+	}
+
 	void stopAtRed(Helper* mainHelper) {
 		if (this->getX() > 115 && this->getX() < 125 && this->getY() > 235 && this->getY() < 442 && mainHelper->getActiveRoad()) {
 			this->vX= 0;
@@ -92,8 +97,13 @@ public:
 		if(isStop && !(this->getX() > 157 && this->getX() < 773 && this->getY() > 169 && this->getY() < 651)) {
 			this->setVx(0);
 		} else {
-			this->setVx(3);
+			
 		}
+	}
+
+	void makeAccident() {
+		this->setPath(L"images/ambulance.bmp");
+		this->setVx(3);
 	}
 };
 
